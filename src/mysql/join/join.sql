@@ -1,4 +1,4 @@
--- 5/12 완료
+-- 6/12 완료
 
 -- lv.2 조건에 맞는 도서와 저자 리스트 출력
 SELECT book_id, author_name, date_format(published_date, '%Y-%m-%d') as published_date
@@ -32,3 +32,11 @@ SELECT product_code, sum(price*sales_amount) as sales
 from product p join offline_sale o on p.product_id = o.product_id
 group by product_code
 order by sales desc, product_code
+
+-- lv.4 5월 식품들의 총매출 조회하기
+SELECT p.PRODUCT_ID, p.PRODUCT_NAME, sum(p.price*o.amount) as TOTAL_SALES
+from food_product p inner join food_order o
+on p.product_id = o.product_id
+where o.produce_date like '%2022-05%'
+group by p.product_id
+order by TOTAL_SALES desc, product_id asc
